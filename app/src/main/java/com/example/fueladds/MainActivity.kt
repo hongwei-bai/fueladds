@@ -6,66 +6,41 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.fueladds.ui.HomeScreen
-import com.example.fueladds.ui.card.CardScreen
 import com.example.fueladds.ui.theme.FuelAddsTheme
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             FuelAddsTheme {
+                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SystemUiController()
-
-                    NavComposeApp()
+                    HomeScreen()
                 }
-
             }
         }
     }
 }
 
 @Composable
-fun NavComposeApp() {
-    val navController = rememberNavController()
-    NavHost(navController, startDestination = "home") {
-        composable("home") {
-            HomeScreen(navController)
-        }
-        composable("g01") {
-            CardScreen("g01")
-        }
-        composable("g02") {
-            CardScreen("g02")
-        }
-        composable("g03") {
-            CardScreen("g03")
-        }
-    }
+fun Greeting(name: String) {
+    Text(text = "Hello $name!")
 }
 
+@Preview(showBackground = true)
 @Composable
-fun SystemUiController() {
-    val systemUiController = rememberSystemUiController()
-    val useDarkIcons = false //MaterialTheme.colors.isLight
-
-    SideEffect {
-        systemUiController.setSystemBarsColor(
-            color = Color.White,
-            darkIcons = useDarkIcons
-        )
+fun DefaultPreview() {
+    FuelAddsTheme {
+        Greeting("Android")
     }
 }
