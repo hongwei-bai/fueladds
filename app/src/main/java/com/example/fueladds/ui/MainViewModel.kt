@@ -1,6 +1,5 @@
 package com.example.fueladds.ui
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fueladds.data.FuelAppRepository
@@ -13,17 +12,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val fuelAppRepository: FuelAppRepository
+    private val fuelAppRepository: FuelAppRepository,
+    private val uiStateMapper: HomeScreenUiStateMapper
 ) : ViewModel() {
-//    private val _isG01ActiveState = MutableStateFlow(false)
-//    val isG01ActiveState: StateFlow<Boolean> = _isG01ActiveState.asStateFlow()
+    private val _fuelAppState: MutableStateFlow<HomeScreenUiState?> =
+        MutableStateFlow(null)
+    val fuelAppState: StateFlow<HomeScreenUiState?> = _fuelAppState.asStateFlow()
 
     init {
         viewModelScope.launch {
-            val fuelData = fuelAppRepository.fetchFuelMetaData()
-            Log.d("bbbb", "fuelData: $fuelData")
-            if (fuelData != null) {
-//                _isG01ActiveState.value = fuelData.activeAccount == "G01"
+            val fuelAppModel = fuelAppRepository.getFuelAppModel()
+            if (fuelAppModel != null) {
+                val viewObject = uiStateMapper.mapToViewObject(fuelAppModel)
+                _fuelAppState.value = viewObject
             }
         }
     }
