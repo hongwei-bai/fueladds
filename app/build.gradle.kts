@@ -72,6 +72,10 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation("androidx.compose.ui:ui:${Versions.compose}")
+    implementation("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
 
     // Below is from creating new project
     implementation("androidx.core:core-ktx:1.7.0")

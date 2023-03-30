@@ -15,23 +15,15 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val fuelAppRepository: FuelAppRepository
 ) : ViewModel() {
-    private val _isG01ActiveState = MutableStateFlow(false)
-    val isG01ActiveState: StateFlow<Boolean> = _isG01ActiveState.asStateFlow()
-
-    private val _isG02ActiveState = MutableStateFlow(false)
-    val isG02ActiveState: StateFlow<Boolean> = _isG02ActiveState.asStateFlow()
-
-    private val _isG03ActiveState = MutableStateFlow(false)
-    val isG03ActiveState: StateFlow<Boolean> = _isG03ActiveState.asStateFlow()
+//    private val _isG01ActiveState = MutableStateFlow(false)
+//    val isG01ActiveState: StateFlow<Boolean> = _isG01ActiveState.asStateFlow()
 
     init {
         viewModelScope.launch {
             val fuelData = fuelAppRepository.fetchFuelMetaData()
             Log.d("bbbb", "fuelData: $fuelData")
             if (fuelData != null) {
-                _isG01ActiveState.value = fuelData.activeAccount == "G01"
-                _isG02ActiveState.value = fuelData.activeAccount == "G02"
-                _isG03ActiveState.value = fuelData.activeAccount == "G03"
+//                _isG01ActiveState.value = fuelData.activeAccount == "G01"
             }
         }
     }

@@ -4,21 +4,20 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+
 
 @Composable
 fun HomeScreen(
-//    navController: NavHostController,
-    mainViewModel: MainViewModel = viewModel()
+    navController: NavController,
+    mainViewModel: MainViewModel
 ) {
-    val isG01ActiveState by mainViewModel.isG01ActiveState.collectAsState()
-    val isG02ActiveState by mainViewModel.isG02ActiveState.collectAsState()
-    val isG03ActiveState by mainViewModel.isG03ActiveState.collectAsState()
+//    val isG01ActiveState by mainViewModel.isG01ActiveState.collectAsState()
 
+    SideEffect { println("HomeScreen+") }
     Column(
         modifier = Modifier.padding(24.dp)
     ) {
@@ -26,9 +25,9 @@ fun HomeScreen(
         Row {
             Button(
                 onClick = {
-//                    navController.navigate("g01")
+                    navController?.navigate("g01")
                 }) {
-                if (isG01ActiveState) {
+                if (true) {
                     Text(
                         text = "<A>Fuel App Account G01"
                     )
@@ -41,9 +40,9 @@ fun HomeScreen(
         }
         Row {
             Button(onClick = {
-//                navController.navigate("g02")
+                navController?.navigate("g02")
             }) {
-                if (isG02ActiveState) {
+                if (true) {
                     Text(
                         text = "<A>Fuel App Account G02"
                     )
@@ -56,9 +55,9 @@ fun HomeScreen(
         }
         Row {
             Button(onClick = {
-//                navController.navigate("g03")
+                navController?.navigate("g03")
             }) {
-                if (isG03ActiveState) {
+                if (true) {
                     Text(
                         text = "<A>Fuel App Account G03"
                     )
@@ -71,4 +70,3 @@ fun HomeScreen(
         }
     }
 }
-

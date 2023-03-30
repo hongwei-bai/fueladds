@@ -1,0 +1,18 @@
+{
+  "name": "main.json",
+  "path": "fuelapp/accounts/main.json",
+  "sha": "be765aa47028d1bcebf19993128e36885c1df26b",
+  "size": 534,
+  "url": "https://api.github.com/repos/hongwei-bai/static-api-experiment/contents/fuelapp/accounts/main.json?ref=main",
+  "html_url": "https://github.com/hongwei-bai/static-api-experiment/blob/main/fuelapp/accounts/main.json",
+  "git_url": "https://api.github.com/repos/hongwei-bai/static-api-experiment/git/blobs/be765aa47028d1bcebf19993128e36885c1df26b",
+  "download_url": "https://raw.githubusercontent.com/hongwei-bai/static-api-experiment/main/fuelapp/accounts/main.json?token=AEXWO4PNKA2NJP7LUZC5KW3EEVD3G",
+  "type": "file",
+  "content": "ewogICJhY2NvdW50cyI6IFsKICAgIHsKICAgICAgImlkIjogMSwKICAgICAg\nImlzTG9ja2VkIjogdHJ1ZSwKICAgICAgImxvY2tlZFByaWNlIjogIiQxODku\nNSIsCiAgICAgICJpc0hpZ2hsaWdodCI6IHRydWUsCiAgICAgICJleHBpcmUi\nOiAiMjAyMy0zLTMxIDk6NDYgUE0iLAogICAgICAiY2FyZEltZ1VybCI6ICIi\nCiAgICB9LAogICAgewogICAgICAiaWQiOiAyLAogICAgICAiaXNMb2NrZWQi\nOiB0cnVlLAogICAgICAibG9ja2VkUHJpY2UiOiAiJDE4OS45IiwKICAgICAg\nImlzSGlnaGxpZ2h0IjogZmFsc2UsCiAgICAgICJleHBpcmUiOiAiMjAyMy0z\nLTMxIDk6NDYgUE0iLAogICAgICAiY2FyZEltZ1VybCI6ICIiCiAgICB9LAog\nICAgewogICAgICAiaWQiOiAzLAogICAgICAiaXNMb2NrZWQiOiB0cnVlLAog\nICAgICAibG9ja2VkUHJpY2UiOiAiJDE4OS45IiwKICAgICAgImlzSGlnaGxp\nZ2h0IjogZmFsc2UsCiAgICAgICJleHBpcmUiOiAiMjAyMy0zLTMxIDk6NDYg\nUE0iLAogICAgICAiY2FyZEltZ1VybCI6ICIiCiAgICB9CiAgXQp9\n",
+  "encoding": "base64",
+  "_links": {
+    "self": "https://api.github.com/repos/hongwei-bai/static-api-experiment/contents/fuelapp/accounts/main.json?ref=main",
+    "git": "https://api.github.com/repos/hongwei-bai/static-api-experiment/git/blobs/be765aa47028d1bcebf19993128e36885c1df26b",
+    "html": "https://github.com/hongwei-bai/static-api-experiment/blob/main/fuelapp/accounts/main.json"
+  }
+}
