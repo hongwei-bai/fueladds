@@ -1,4 +1,4 @@
-package com.example.fueladds.ui
+package com.example.fueladds.ui.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -12,6 +12,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.fueladds.ui.shared.ErrorScreen
+import com.example.fueladds.ui.shared.LoadingScreen
+import com.example.fueladds.ui.shared.UiState
 
 
 @Composable
@@ -19,22 +22,29 @@ fun HomeScreen(
     navController: NavController,
     mainViewModel: MainViewModel
 ) {
-    val uiState by mainViewModel.fuelAppState.collectAsState()
+    val uiState: HomeUiState by mainViewModel.fuelAppModelFlow.collectAsState(HomeUiState())
 
     Column(
         modifier = Modifier.padding(24.dp)
     ) {
         Spacer(modifier = Modifier.height(60.dp))
-        uiState?.cards?.forEach { card ->
-            FuelCard(card) {
-                navController.navigate(card.displayName.lowercase())
+
+        when (uiState.state) {
+            UiState.Loading -> LoadingScreen()
+            UiState.Success -> {
+                uiState.cards.forEach { card ->
+                    FuelCard(card) {
+                        navController.navigate(card.name.lowercase())
+                    }
+                    Spacer(modifier = Modifier.height(26.dp))
+                }
             }
-            Spacer(modifier = Modifier.height(26.dp))
+            else -> ErrorScreen()
         }
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun FuelCard(
     @PreviewParameter(CardDataPreviewProvider::class) card: Card,
@@ -44,10 +54,10 @@ fun FuelCard(
         Button(
             enabled = card.isEnabled,
             onClick = {
-                clickAction?.invoke(card.displayName.lowercase())
+                clickAction?.invoke(card.name.lowercase())
             }) {
             Text(
-                text = "Fuel App Account ${card.displayName}"
+                text = "Fuel App Account ${card.name}"
             )
         }
     }
@@ -57,12 +67,12 @@ class CardDataPreviewProvider : PreviewParameterProvider<Card> {
     override val values: Sequence<Card>
         get() = sequenceOf(
             Card(
-                displayName = "Fuel App Account G01",
+                name = "G01",
                 isEnabled = true,
                 isHighlight = false
             ),
             Card(
-                displayName = "Fuel App Account G02",
+                name = "G02",
                 isEnabled = false,
                 isHighlight = false
             ),

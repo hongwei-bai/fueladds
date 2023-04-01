@@ -27,7 +27,7 @@ object NetworkModule {
         .addInterceptor(Interceptor { chain ->
             val originalRequest: Request = chain.request()
             val requestWithAuthorization: Request = originalRequest.newBuilder()
-                .header("Authorization", "Bearer ${BuildConfig.staticApiToken}")
+                .header(AUTHORIZATION_HEADER, BEARER_TOKEN)
                 .build()
             chain.proceed(requestWithAuthorization)
         })

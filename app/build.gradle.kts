@@ -60,6 +60,7 @@ android {
 dependencies {
     // Below is from Google sample project Crane
     implementation(Libs.Kotlin.stdlib)
+    implementation(Libs.Kotlin.Coroutines.core)
     implementation(Libs.Kotlin.Coroutines.android)
     implementation(Libs.AndroidX.Lifecycle.viewModelCompose)
     implementation(Libs.AndroidX.Lifecycle.viewModelKtx)

@@ -17,18 +17,18 @@ import java.util.*
 
 @Preview(showBackground = true)
 @Composable
-fun CardScreen(@PreviewParameter(SampleAccountProvider::class) account: String) {
+fun CardScreen(@PreviewParameter(SampleAccountProvider::class) cardId: Int) {
     Row {
         Image(
             painter = painterResource(
-                when (account) {
-                    "g01" -> R.drawable.fuel_logo
-                    "g02" -> R.drawable.fuel_logo
-                    "g03" -> R.drawable.fuel_logo
+                when (cardId) {
+                    1 -> R.drawable.fuel_logo
+                    2 -> R.drawable.fuel_logo
+                    3 -> R.drawable.fuel_logo
                     else -> R.drawable.fuel_logo
                 }
             ),
-            contentDescription = account.uppercase(Locale.US),
+            contentDescription = "card",
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .align(Alignment.Top)
@@ -37,6 +37,6 @@ fun CardScreen(@PreviewParameter(SampleAccountProvider::class) account: String) 
     }
 }
 
-class SampleAccountProvider: PreviewParameterProvider<String> {
+class SampleAccountProvider : PreviewParameterProvider<String> {
     override val values = sequenceOf("g01", "g02")
 }

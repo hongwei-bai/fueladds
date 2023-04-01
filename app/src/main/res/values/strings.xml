@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FuelAdds</string>
+    <string name="loading_message">Loading</string>
+    <string name="generic_error_message">Something is wrong! Please try again later.</string>
 </resources>

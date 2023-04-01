@@ -1,4 +1,4 @@
-package com.example.fueladds
+package com.example.fueladds.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,9 +14,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.fueladds.ui.HomeScreen
-import com.example.fueladds.ui.MainViewModel
+import com.example.fueladds.ui.home.HomeScreen
+import com.example.fueladds.ui.home.MainViewModel
 import com.example.fueladds.ui.card.CardScreen
+import com.example.fueladds.ui.shared.NavigationPath
 import com.example.fueladds.ui.theme.FuelAddsTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,18 +45,12 @@ class MainActivity : ComponentActivity() {
 fun NavComposeApp() {
     val navController = rememberNavController()
     val viewModel: MainViewModel = viewModel()
-    NavHost(navController, startDestination = "home") {
-        composable("home") {
+    NavHost(navController, startDestination = NavigationPath.HomeScreen) {
+        composable(NavigationPath.HomeScreen) {
             HomeScreen(navController, viewModel)
         }
-        composable("g01") {
-            CardScreen("g01")
-        }
-        composable("g02") {
-            CardScreen("g02")
-        }
-        composable("g03") {
-            CardScreen("g03")
+        composable(NavigationPath.CardScreen) {
+            CardScreen(1)
         }
     }
 }
