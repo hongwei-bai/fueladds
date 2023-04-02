@@ -1,8 +1,9 @@
 package com.example.fueladds.ui.home
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -13,11 +14,11 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.fueladds.R
 import com.example.fueladds.ui.shared.ErrorScreen
 import com.example.fueladds.ui.shared.LoadingScreen
 import com.example.fueladds.ui.shared.NavigationPath
 import com.example.fueladds.ui.shared.UiState
-import com.example.fueladds.R
 
 @Composable
 fun HomeScreen(
@@ -55,12 +56,40 @@ fun FuelCard(
     Row {
         Button(
             enabled = card.isEnabled,
+            modifier = Modifier
+                .fillMaxWidth()
+                .requiredHeight(96.dp),
             onClick = {
                 clickAction?.invoke(card.id)
             }) {
-            Text(
-                text = stringResource(id = R.string.fuel_card_display_name, card.id)
-            )
+            Column {
+                Row {
+                    if (card.isHighlight) {
+                        Icon(Icons.Default.Star, contentDescription = "Star")
+                        Spacer(modifier = Modifier.requiredWidth(16.dp))
+                    }
+                    Text(
+                        text = stringResource(id = R.string.fuel_card_display_name, card.id),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+                if (card.isEnabled && card.price != null && card.expire != null) {
+                    Spacer(modifier = Modifier.requiredHeight(4.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = card.price,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Spacer(modifier = Modifier.requiredWidth(16.dp))
+                        Text(
+                            text = card.expire,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -71,12 +100,16 @@ class CardDataPreviewProvider : PreviewParameterProvider<Card> {
             Card(
                 id = 1,
                 isEnabled = true,
-                isHighlight = false
+                isHighlight = false,
+                price = "\$189.5",
+                expire = "2023-3-31 9:46 PM"
             ),
             Card(
                 id = 2,
                 isEnabled = false,
-                isHighlight = false
+                isHighlight = false,
+                price = null,
+                expire = null
             ),
         )
 }

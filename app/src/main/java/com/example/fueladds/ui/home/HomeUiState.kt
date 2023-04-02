@@ -11,5 +11,9 @@ data class HomeUiState(
 )
 
 data class Card(
-    val id: Int, val isEnabled: Boolean, val isHighlight: Boolean
+    val id: Int,
+    val isEnabled: Boolean,
+    val isHighlight: Boolean,
+    val price: String?,
+    val expire: String?
 )

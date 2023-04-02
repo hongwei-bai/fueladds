@@ -13,7 +13,9 @@ class HomeUiStateMapper @Inject constructor() {
                     Card(
                         id = accountModel.id,
                         isEnabled = accountModel.isLocked,
-                        isHighlight = accountModel.isHighlight
+                        isHighlight = accountModel.isHighlight,
+                        price = accountModel.lockedPrice,
+                        expire = accountModel.expire
                     )
                 },
                 cardImage = hashMapOf()
