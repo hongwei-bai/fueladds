@@ -1,12 +1,11 @@
 package com.example.fueladds.ui.home
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,7 +27,8 @@ fun HomeScreen(
     val uiState: HomeUiState by mainViewModel.fuelAppModelFlow.collectAsState(HomeUiState())
 
     Column(
-        modifier = Modifier.padding(24.dp)
+        modifier = Modifier
+            .padding(24.dp)
     ) {
         Spacer(modifier = Modifier.height(60.dp))
 
@@ -39,7 +39,7 @@ fun HomeScreen(
                     FuelCard(card) {
                         navController.navigate("${NavigationPath.CardScreen}/${card.id}")
                     }
-                    Spacer(modifier = Modifier.height(26.dp))
+                    Spacer(modifier = Modifier.height(48.dp))
                 }
             }
             else -> ErrorScreen()
@@ -59,6 +59,7 @@ fun FuelCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .requiredHeight(96.dp),
+            shape = RoundedCornerShape(16.dp),
             onClick = {
                 clickAction?.invoke(card.id)
             }) {
