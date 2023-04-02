@@ -2,6 +2,8 @@ package com.example.fueladds.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val FuelGreen = Color(0xFF00785D)
+
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)

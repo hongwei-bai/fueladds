@@ -11,7 +11,7 @@ class HomeUiStateMapper @Inject constructor() {
                 state = UiState.Success,
                 cards = model.accounts.map { accountModel ->
                     Card(
-                        name = "G0${accountModel.id}",
+                        id = accountModel.id,
                         isEnabled = accountModel.isLocked,
                         isHighlight = accountModel.isHighlight
                     )

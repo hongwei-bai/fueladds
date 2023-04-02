@@ -2,4 +2,5 @@
     <string name="app_name">FuelAdds</string>
     <string name="loading_message">Loading</string>
     <string name="generic_error_message">Something is wrong! Please try again later.</string>
+    <string name="fuel_card_display_name">Fuel Account G%02d</string>
 </resources>

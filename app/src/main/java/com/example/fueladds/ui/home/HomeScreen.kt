@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -14,8 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.fueladds.ui.shared.ErrorScreen
 import com.example.fueladds.ui.shared.LoadingScreen
+import com.example.fueladds.ui.shared.NavigationPath
 import com.example.fueladds.ui.shared.UiState
-
+import com.example.fueladds.R
 
 @Composable
 fun HomeScreen(
@@ -34,7 +36,7 @@ fun HomeScreen(
             UiState.Success -> {
                 uiState.cards.forEach { card ->
                     FuelCard(card) {
-                        navController.navigate(card.name.lowercase())
+                        navController.navigate("${NavigationPath.CardScreen}/${card.id}")
                     }
                     Spacer(modifier = Modifier.height(26.dp))
                 }
@@ -48,16 +50,16 @@ fun HomeScreen(
 @Composable
 fun FuelCard(
     @PreviewParameter(CardDataPreviewProvider::class) card: Card,
-    clickAction: ((String) -> Unit)? = null
+    clickAction: ((Int) -> Unit)? = null
 ) {
     Row {
         Button(
             enabled = card.isEnabled,
             onClick = {
-                clickAction?.invoke(card.name.lowercase())
+                clickAction?.invoke(card.id)
             }) {
             Text(
-                text = "Fuel App Account ${card.name}"
+                text = stringResource(id = R.string.fuel_card_display_name, card.id)
             )
         }
     }
@@ -67,12 +69,12 @@ class CardDataPreviewProvider : PreviewParameterProvider<Card> {
     override val values: Sequence<Card>
         get() = sequenceOf(
             Card(
-                name = "G01",
+                id = 1,
                 isEnabled = true,
                 isHighlight = false
             ),
             Card(
-                name = "G02",
+                id = 2,
                 isEnabled = false,
                 isHighlight = false
             ),

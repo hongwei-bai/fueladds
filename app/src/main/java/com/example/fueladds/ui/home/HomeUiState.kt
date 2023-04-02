@@ -1,14 +1,15 @@
 package com.example.fueladds.ui.home
 
+import android.graphics.Bitmap
 import com.example.fueladds.ui.shared.UiState
 
 
 data class HomeUiState(
     val state: UiState = UiState.Loading,
     val cards: List<Card> = emptyList(),
-    val cardImage: HashMap<String, String> = hashMapOf()
+    val cardImage: HashMap<String, Bitmap> = hashMapOf()
 )
 
 data class Card(
-    val name: String, val isEnabled: Boolean, val isHighlight: Boolean
+    val id: Int, val isEnabled: Boolean, val isHighlight: Boolean
 )

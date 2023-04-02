@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(
         uiStateMapper.mapToViewObject(it)
     }
 
-    init {
+    fun loadMainData() {
         viewModelScope.launch(Dispatchers.IO) {
             fuelAppRepository.fetchFuelAppData()
         }

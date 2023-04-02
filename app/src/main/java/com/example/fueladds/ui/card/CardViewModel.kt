@@ -1,0 +1,30 @@
+package com.example.fueladds.ui.card
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.fueladds.data.FuelAppRepository
+import com.example.fueladds.ui.shared.UiState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class CardViewModel @Inject constructor(
+    private val fuelAppRepository: FuelAppRepository
+) : ViewModel() {
+    val fuelCardModelFlow = fuelAppRepository.fuelCardModelFlow.map {
+        CardUiState(
+            state = UiState.Success,
+            cardId = it.cardId,
+            cardImageBitmap = it.cardBitmap
+        )
+    }
+
+    fun loadCard(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            fuelAppRepository.fetchFuelCardImage(id)
+        }
+    }
+}

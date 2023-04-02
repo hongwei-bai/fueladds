@@ -1,42 +1,40 @@
 package com.example.fueladds.ui.card
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.example.fueladds.R
-import java.util.*
+import com.example.fueladds.ui.shared.LoadingScreen
+import kotlinx.coroutines.flow.filter
 
-@Preview(showBackground = true)
+@SuppressLint("FlowOperatorInvokedInComposition")
 @Composable
-fun CardScreen(@PreviewParameter(SampleAccountProvider::class) cardId: Int) {
-    Row {
-        Image(
-            painter = painterResource(
-                when (cardId) {
-                    1 -> R.drawable.fuel_logo
-                    2 -> R.drawable.fuel_logo
-                    3 -> R.drawable.fuel_logo
-                    else -> R.drawable.fuel_logo
-                }
-            ),
-            contentDescription = "card",
-            contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .align(Alignment.Top)
-                .background(Color.White),
-        )
-    }
-}
+fun CardScreen(
+    cardViewModel: CardViewModel,
+    cardId: Int
+) {
+    val cardUiState by cardViewModel.fuelCardModelFlow
+        .filter { it.cardId == cardId }
+        .collectAsState(CardUiState())
 
-class SampleAccountProvider : PreviewParameterProvider<String> {
-    override val values = sequenceOf("g01", "g02")
+    cardUiState.cardImageBitmap?.let {
+        Row {
+            Image(
+                bitmap = it.asImageBitmap(),
+                contentDescription = "card",
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier
+                    .align(Alignment.Top)
+                    .background(Color.White)
+            )
+        }
+    } ?: LoadingScreen()
 }
