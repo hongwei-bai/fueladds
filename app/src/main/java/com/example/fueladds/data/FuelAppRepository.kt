@@ -27,9 +27,13 @@ class FuelAppRepository @Inject constructor(
 
     suspend fun fetchFuelAppData() {
         if (!isOfflineMode) {
-            val response = openApiService.getFuelAppData()
-            val body = response.body()
-            if (response.isSuccessful && body != null) {
+            val response = try {
+                openApiService.getFuelAppData()
+            } catch (e: Exception) {
+                null
+            }
+            val body = response?.body()
+            if (response?.isSuccessful == true && body != null) {
                 val encodedContent = body.content
                 val fuelAppModel =
                     Gson().fromJson(decodeBase64ToString(encodedContent), FuelAppModel::class.java)
@@ -47,9 +51,13 @@ class FuelAppRepository @Inject constructor(
     suspend fun fetchFuelCardImage(cardId: Int) {
         if (!isOfflineMode) {
             val stringId = String.format(FUEL_CARD_ID_STRING_FORMAT_TEMPLATE, cardId)
-            val response = openApiService.getFuelCardImage(stringId)
-            val body = response.body()
-            if (response.isSuccessful && body != null) {
+            val response = try {
+                openApiService.getFuelCardImage(stringId)
+            } catch (e: Exception) {
+                null
+            }
+            val body = response?.body()
+            if (response?.isSuccessful == true && body != null) {
                 val encodedContent = body.content
                 val imageBitmap = decodeBase64ToBitmap(encodedContent)
                 if (imageBitmap != null) {
