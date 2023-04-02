@@ -1,0 +1,25 @@
+{
+  "accounts": [
+    {
+      "id": 1,
+      "isLocked": true,
+      "lockedPrice": null,
+      "isHighlight": false,
+      "expire": null
+    },
+    {
+      "id": 2,
+      "isLocked": true,
+      "lockedPrice": null,
+      "isHighlight": false,
+      "expire": null
+    },
+    {
+      "id": 3,
+      "isLocked": true,
+      "lockedPrice": null,
+      "isHighlight": false,
+      "expire": null
+    }
+  ]
+}

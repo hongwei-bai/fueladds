@@ -1,4 +1,4 @@
-package com.example.fueladds.data
+package com.example.fueladds.data.remote
 
 import com.example.fueladds.constant.FUEL_APP_MAIN_ENDPOINT
 import com.example.fueladds.constant.FUEL_CARD_IMAGE_TEMPLATE_ENDPOINT

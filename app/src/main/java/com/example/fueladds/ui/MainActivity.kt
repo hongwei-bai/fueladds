@@ -19,6 +19,7 @@ import com.example.fueladds.ui.home.HomeScreen
 import com.example.fueladds.ui.home.MainViewModel
 import com.example.fueladds.ui.card.CardScreen
 import com.example.fueladds.ui.card.CardViewModel
+import com.example.fueladds.ui.shared.FallbackViewModel
 import com.example.fueladds.ui.shared.NavigationPath
 import com.example.fueladds.ui.theme.FuelAddsTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -46,23 +47,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NavComposeApp() {
     val navController = rememberNavController()
-    val mainViewModel: MainViewModel = viewModel()
-    val cardViewModel: CardViewModel = viewModel()
+
     NavHost(navController, startDestination = NavigationPath.HomeScreen) {
         composable(NavigationPath.HomeScreen) {
-            LaunchedEffect(true) {
-                mainViewModel.loadMainData()
-            }
-            HomeScreen(navController, mainViewModel)
+            HomeScreen(navController)
         }
         composable("${NavigationPath.CardScreen}/{cardId}") { navBackStackEntry ->
             val cardIdString = navBackStackEntry.arguments?.getString("cardId")
             cardIdString?.let {
                 val cardId = it.toInt()
-                LaunchedEffect(true) {
-                    cardViewModel.loadCard(cardId)
-                }
-                CardScreen(cardViewModel, cardId)
+                CardScreen(navController, cardId)
             }
         }
     }

@@ -2,7 +2,7 @@ package com.example.fueladds.di
 
 import com.example.fueladds.*
 import com.example.fueladds.constant.*
-import com.example.fueladds.data.OpenApiService
+import com.example.fueladds.data.remote.OpenApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -12,19 +12,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.fueladds.R
-import com.example.fueladds.ui.shared.ErrorScreen
-import com.example.fueladds.ui.shared.LoadingScreen
-import com.example.fueladds.ui.shared.NavigationPath
-import com.example.fueladds.ui.shared.UiState
+import com.example.fueladds.ui.shared.*
 
 @Composable
 fun HomeScreen(
     navController: NavController,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel = hiltViewModel()
 ) {
     val uiState: HomeUiState by mainViewModel.fuelAppModelFlow.collectAsState(HomeUiState())
+
+    LaunchedEffect(uiState) {
+        mainViewModel.loadMainData()
+    }
 
     Column(
         modifier = Modifier
@@ -33,7 +35,7 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(60.dp))
 
         when (uiState.state) {
-            UiState.Loading -> LoadingScreen()
+            UiState.Loading -> LoadingScreen(navController)
             UiState.Success -> {
                 uiState.cards.forEach { card ->
                     FuelCard(card) {
@@ -41,8 +43,16 @@ fun HomeScreen(
                     }
                     Spacer(modifier = Modifier.height(48.dp))
                 }
+                if (mainViewModel.isOfflineMode()) {
+                    Spacer(modifier = Modifier.height(48.dp))
+                    Text(
+                        text = stringResource(id = R.string.offline_mode_message),
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
             }
-            else -> ErrorScreen()
+            else -> ErrorScreen(navController)
         }
     }
 }

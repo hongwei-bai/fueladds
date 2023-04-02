@@ -87,6 +87,7 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.0.0-alpha11")
     implementation("com.airbnb.android:lottie-compose:6.0.0")
     implementation("com.airbnb.android:lottie:6.0.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

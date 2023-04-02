@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Don't Upload Card Images
+fuel_g0?.png

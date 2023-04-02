@@ -6,8 +6,7 @@ import com.example.fueladds.ui.shared.UiState
 
 data class HomeUiState(
     val state: UiState = UiState.Loading,
-    val cards: List<Card> = emptyList(),
-    val cardImage: HashMap<String, Bitmap> = hashMapOf()
+    val cards: List<Card> = emptyList()
 )
 
 data class Card(

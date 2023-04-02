@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -12,18 +13,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.fueladds.ui.shared.LoadingScreen
 import kotlinx.coroutines.flow.filter
 
 @SuppressLint("FlowOperatorInvokedInComposition")
 @Composable
 fun CardScreen(
-    cardViewModel: CardViewModel,
-    cardId: Int
+    navController: NavController,
+    cardId: Int,
+    cardViewModel: CardViewModel = hiltViewModel(),
 ) {
     val cardUiState by cardViewModel.fuelCardModelFlow
         .filter { it.cardId == cardId }
         .collectAsState(CardUiState())
+
+    LaunchedEffect(true) {
+        cardViewModel.loadCard(cardId)
+    }
 
     cardUiState.cardImageBitmap?.let {
         Row {
@@ -36,5 +44,5 @@ fun CardScreen(
                     .background(Color.White)
             )
         }
-    } ?: LoadingScreen()
+    } ?: LoadingScreen(navController)
 }

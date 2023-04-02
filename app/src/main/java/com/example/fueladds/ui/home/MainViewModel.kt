@@ -15,12 +15,16 @@ class MainViewModel @Inject constructor(
     private val uiStateMapper: HomeUiStateMapper
 ) : ViewModel() {
     val fuelAppModelFlow = fuelAppRepository.fuelAppModelFlow.map {
-        uiStateMapper.mapToViewObject(it)
+        uiStateMapper.mapToUiState(it)
     }
 
     fun loadMainData() {
         viewModelScope.launch(Dispatchers.IO) {
             fuelAppRepository.fetchFuelAppData()
         }
+    }
+
+    fun isOfflineMode(): Boolean {
+        return fuelAppRepository.isOfflineMode()
     }
 }
