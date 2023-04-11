@@ -1,6 +1,5 @@
 package com.example.fueladds.ui.home
 
-import android.graphics.Bitmap
 import com.example.fueladds.ui.shared.UiState
 
 
@@ -12,7 +11,9 @@ data class HomeUiState(
 data class Card(
     val id: Int,
     val isEnabled: Boolean,
+    val isOverdue: Boolean,
     val isHighlight: Boolean,
     val price: String?,
-    val expire: String?
+    val expire: String?,
+    val expireIn: String?
 )

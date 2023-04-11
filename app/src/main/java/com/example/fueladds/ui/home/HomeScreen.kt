@@ -1,5 +1,6 @@
 package com.example.fueladds.ui.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -7,6 +8,8 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -63,12 +66,19 @@ fun FuelCard(
     @PreviewParameter(CardDataPreviewProvider::class) card: Card,
     clickAction: ((Int) -> Unit)? = null
 ) {
+    val backgroundColor = if (card.isOverdue) {
+        Color.Red
+    } else {
+        MaterialTheme.colorScheme.primary
+    }
     Row {
         Button(
             enabled = card.isEnabled,
             modifier = Modifier
                 .fillMaxWidth()
-                .requiredHeight(96.dp),
+                .clip(RoundedCornerShape(16.dp))
+                .background(backgroundColor)
+                .requiredHeight(108.dp),
             shape = RoundedCornerShape(16.dp),
             onClick = {
                 clickAction?.invoke(card.id)
@@ -84,7 +94,9 @@ fun FuelCard(
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
-                if (card.isEnabled && card.price != null && card.expire != null) {
+                if (card.isEnabled && card.price != null
+                    && card.expire != null && card.expireIn != null
+                ) {
                     Spacer(modifier = Modifier.requiredHeight(4.dp))
                     Row(
                         horizontalArrangement = Arrangement.Center
@@ -96,6 +108,15 @@ fun FuelCard(
                         Spacer(modifier = Modifier.requiredWidth(16.dp))
                         Text(
                             text = card.expire,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                    Spacer(modifier = Modifier.requiredHeight(4.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = card.expireIn,
                             style = MaterialTheme.typography.bodySmall
                         )
                     }
@@ -111,16 +132,29 @@ class CardDataPreviewProvider : PreviewParameterProvider<Card> {
             Card(
                 id = 1,
                 isEnabled = true,
-                isHighlight = false,
+                isHighlight = true,
+                isOverdue = false,
                 price = "\$189.5",
-                expire = "2023-3-31 9:46 PM"
+                expire = "2023-3-31 9:46 PM",
+                expireIn = "2 Days"
+            ),
+            Card(
+                id = 1,
+                isEnabled = false,
+                isHighlight = false,
+                isOverdue = true,
+                price = "\$189.7",
+                expire = "2023-3-31 9:46 PM",
+                expireIn = "Overdue"
             ),
             Card(
                 id = 2,
                 isEnabled = false,
                 isHighlight = false,
+                isOverdue = false,
                 price = null,
-                expire = null
+                expire = null,
+                expireIn = null,
             ),
         )
 }
