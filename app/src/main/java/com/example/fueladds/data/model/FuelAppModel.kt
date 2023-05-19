@@ -14,5 +14,6 @@ data class Account(
     val isLocked: Boolean,
     val lockedPrice: String?,
     val isHighlight: Boolean,
-    val expire: String?
+    val expire: String?,
+    val isE10: Boolean?
 )

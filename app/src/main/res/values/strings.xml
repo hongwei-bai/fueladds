@@ -3,6 +3,7 @@
     <string name="loading_message">Loading</string>
     <string name="generic_error_message">Something is wrong!\nPlease try again later.</string>
     <string name="fuel_card_display_name">Fuel Account G%02d</string>
+    <string name="fuel_card_display_name_e10">[E10] Fuel Account G%02d</string>
     <string name="offline_mode">Offline Mode</string>
     <string name="offline_mode_message">You are in Offline Mode now.\nTo opt out, Kill the app.</string>
 </resources>

@@ -15,5 +15,6 @@ data class Card(
     val isHighlight: Boolean,
     val price: String?,
     val expire: String?,
-    val expireIn: String?
+    val expireIn: String?,
+    val isE10: Boolean
 )

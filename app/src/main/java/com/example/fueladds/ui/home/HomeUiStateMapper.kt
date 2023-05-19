@@ -1,10 +1,14 @@
 package com.example.fueladds.ui.home
 
+import android.util.Log
 import com.example.fueladds.constant.DateConstants.DATE_FORMAT
+import com.example.fueladds.constant.DateConstants.DATE_FORMAT_B1
+import com.example.fueladds.constant.DateConstants.DATE_FORMAT_B2
 import com.example.fueladds.data.model.FuelAppModel
 import com.example.fueladds.data.model.FuelAppModelBase
 import com.example.fueladds.data.model.FuelAppModelError
 import com.example.fueladds.ui.shared.UiState
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -24,7 +28,8 @@ class HomeUiStateMapper @Inject constructor() {
                                 isOverdue = isOverdue(accountModel.expire),
                                 price = accountModel.lockedPrice,
                                 expire = accountModel.expire,
-                                expireIn = getTimeDiffDescription(accountModel.expire)
+                                expireIn = getTimeDiffDescription(accountModel.expire),
+                                isE10 = accountModel.isE10 ?: false
                             )
                         }
                     )
@@ -32,18 +37,37 @@ class HomeUiStateMapper @Inject constructor() {
                     HomeUiState(UiState.Error)
                 }
             }
+
             FuelAppModelError -> HomeUiState(UiState.Error)
         }
 
     private fun getExpireCalendar(expireString: String?): Calendar? {
-        if (expireString == null || expireString.isEmpty()) {
+        if (expireString.isNullOrEmpty()) {
             return null
         }
 
-        val expireCalendar = Calendar.getInstance()
-        val format = SimpleDateFormat(DATE_FORMAT, Locale.US)
-        expireCalendar.time = format.parse(expireString) as Date
-        return expireCalendar
+        val trySet = listOf(
+            DATE_FORMAT, DATE_FORMAT_B1, DATE_FORMAT_B2
+        )
+        trySet.forEach {
+            val expireCalendar = tryParseCalendar(expireString, it)
+            if (expireCalendar != null) {
+                return expireCalendar
+            }
+        }
+        return null
+    }
+
+    private fun tryParseCalendar(str: String, formatStr: String): Calendar? {
+        val calendar = Calendar.getInstance()
+        val format = SimpleDateFormat(formatStr, Locale.US)
+        try {
+            calendar.time = format.parse(str) as Date
+        } catch (e: ParseException) {
+            Log.w(HomeUiStateMapper::class.simpleName, "parse date failure: $e")
+            return null
+        }
+        return calendar
     }
 
     private fun isOverdue(expireString: String?): Boolean {

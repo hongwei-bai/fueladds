@@ -55,6 +55,7 @@ fun HomeScreen(
                     )
                 }
             }
+
             else -> ErrorScreen(navController)
         }
     }
@@ -89,10 +90,20 @@ fun FuelCard(
                         Icon(Icons.Default.Star, contentDescription = "Star")
                         Spacer(modifier = Modifier.requiredWidth(16.dp))
                     }
-                    Text(
-                        text = stringResource(id = R.string.fuel_card_display_name, card.id),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
+                    if (card.isE10) {
+                        Text(
+                            text = stringResource(
+                                id = R.string.fuel_card_display_name_e10,
+                                card.id
+                            ),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    } else {
+                        Text(
+                            text = stringResource(id = R.string.fuel_card_display_name, card.id),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
                 }
                 if (card.isEnabled && card.price != null
                     && card.expire != null && card.expireIn != null
@@ -136,7 +147,8 @@ class CardDataPreviewProvider : PreviewParameterProvider<Card> {
                 isOverdue = false,
                 price = "\$189.5",
                 expire = "2023-3-31 9:46 PM",
-                expireIn = "2 Days"
+                expireIn = "2 Days",
+                isE10 = false
             ),
             Card(
                 id = 1,
@@ -145,7 +157,8 @@ class CardDataPreviewProvider : PreviewParameterProvider<Card> {
                 isOverdue = true,
                 price = "\$189.7",
                 expire = "2023-3-31 9:46 PM",
-                expireIn = "Overdue"
+                expireIn = "Overdue",
+                isE10 = false
             ),
             Card(
                 id = 2,
@@ -155,6 +168,7 @@ class CardDataPreviewProvider : PreviewParameterProvider<Card> {
                 price = null,
                 expire = null,
                 expireIn = null,
+                isE10 = true
             ),
         )
 }
