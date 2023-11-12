@@ -15,5 +15,5 @@ data class Account(
     val lockedPrice: String?,
     val isHighlight: Boolean,
     val expire: String?,
-    val isE10: Boolean?
+    val fuelType: String?
 )

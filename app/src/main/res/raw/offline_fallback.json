@@ -5,21 +5,24 @@
       "isLocked": true,
       "lockedPrice": null,
       "isHighlight": false,
-      "expire": null
+      "expire": null,
+      "fuelType": null
     },
     {
       "id": 2,
       "isLocked": true,
       "lockedPrice": null,
       "isHighlight": false,
-      "expire": null
+      "expire": null,
+      "fuelType": null
     },
     {
       "id": 3,
       "isLocked": true,
       "lockedPrice": null,
       "isHighlight": false,
-      "expire": null
+      "expire": null,
+      "fuelType": null
     }
   ]
 }

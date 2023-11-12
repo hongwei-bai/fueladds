@@ -1,5 +1,6 @@
 package com.example.fueladds.ui.home
 
+import android.graphics.Bitmap
 import com.example.fueladds.ui.shared.UiState
 
 
@@ -16,5 +17,9 @@ data class Card(
     val price: String?,
     val expire: String?,
     val expireIn: String?,
-    val isE10: Boolean
+    val fuelType: FuelType
 )
+
+enum class FuelType {
+    U98, U95, U91, E10, Diesel, Unknown
+}

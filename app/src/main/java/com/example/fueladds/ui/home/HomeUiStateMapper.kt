@@ -1,13 +1,18 @@
 package com.example.fueladds.ui.home
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
+import androidx.compose.ui.text.toLowerCase
 import com.example.fueladds.constant.DateConstants.DATE_FORMAT
 import com.example.fueladds.constant.DateConstants.DATE_FORMAT_B1
 import com.example.fueladds.constant.DateConstants.DATE_FORMAT_B2
+import com.example.fueladds.data.local.OfflineFileRules
 import com.example.fueladds.data.model.FuelAppModel
 import com.example.fueladds.data.model.FuelAppModelBase
 import com.example.fueladds.data.model.FuelAppModelError
 import com.example.fueladds.ui.shared.UiState
+import java.io.InputStream
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,7 +34,7 @@ class HomeUiStateMapper @Inject constructor() {
                                 price = accountModel.lockedPrice,
                                 expire = accountModel.expire,
                                 expireIn = getTimeDiffDescription(accountModel.expire),
-                                isE10 = accountModel.isE10 ?: false
+                                fuelType = mapFuelType(accountModel.fuelType)
                             )
                         }
                     )
@@ -39,6 +44,16 @@ class HomeUiStateMapper @Inject constructor() {
             }
 
             FuelAppModelError -> HomeUiState(UiState.Error)
+        }
+
+    private fun mapFuelType(fuelType: String?): FuelType =
+        when (fuelType) {
+            "U98", "u98", "98", "#98" -> FuelType.U98
+            "U95", "u95", "95", "#95" -> FuelType.U95
+            "U91", "u91", "91", "#91" -> FuelType.U91
+            "E10", "e10" -> FuelType.E10
+            "Diesel", "diesel" -> FuelType.Diesel
+            else -> FuelType.Unknown
         }
 
     private fun getExpireCalendar(expireString: String?): Calendar? {
