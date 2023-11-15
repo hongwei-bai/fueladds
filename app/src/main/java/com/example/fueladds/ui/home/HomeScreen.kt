@@ -52,15 +52,14 @@ fun HomeScreen(
         mainViewModel.loadMainData()
     }
 
-    Column(
-        modifier = Modifier
-            .padding(24.dp)
-    ) {
-        Spacer(modifier = Modifier.height(60.dp))
-
-        when (uiState.state) {
-            UiState.Loading -> LoadingScreen(navController)
-            UiState.Success -> {
+    when (uiState.state) {
+        UiState.Loading -> LoadingScreen(navController)
+        UiState.Success -> {
+            Column(
+                modifier = Modifier
+                    .padding(24.dp)
+            ) {
+                Spacer(modifier = Modifier.height(60.dp))
                 uiState.cards.forEach { card ->
                     FuelCard(card) {
                         navController.navigate("${NavigationPath.CardScreen}/${card.id}")
@@ -76,9 +75,9 @@ fun HomeScreen(
                     )
                 }
             }
-
-            else -> ErrorScreen(navController)
         }
+
+        else -> ErrorScreen(navController)
     }
 }
 
@@ -89,6 +88,11 @@ fun FuelCard(
     clickAction: ((Int) -> Unit)? = null
 ) {
     val backgroundColor = MaterialTheme.colorScheme.primary
+    val textColor = if (card.isEnabled) {
+        MaterialTheme.colorScheme.onPrimary
+    } else {
+        MaterialTheme.colorScheme.onBackground
+    }
     Row {
         Button(
             enabled = card.isEnabled,
@@ -119,27 +123,18 @@ fun FuelCard(
                         Spacer(modifier = Modifier.requiredHeight(8.dp))
                     }
                     Row {
-                        if (card.isHighlight) {
+                        if (card.isHighlight && card.isEnabled && !card.isOverdue) {
                             Icon(Icons.Default.Star, contentDescription = "Star")
                             Spacer(modifier = Modifier.requiredWidth(16.dp))
                         }
-                        if (card.fuelType == FuelType.E10) {
-                            Text(
-                                text = stringResource(
-                                    id = R.string.fuel_card_display_name_e10,
-                                    card.id
-                                ),
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        } else {
-                            Text(
-                                text = stringResource(
-                                    id = R.string.fuel_card_display_name,
-                                    card.id
-                                ),
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
+                        Text(
+                            text = stringResource(
+                                id = R.string.fuel_card_display_name,
+                                card.id
+                            ),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = textColor
+                        )
                     }
                     if (card.price != null && card.expire != null && card.expireIn != null) {
                         Spacer(modifier = Modifier.requiredHeight(4.dp))
@@ -148,12 +143,14 @@ fun FuelCard(
                         ) {
                             Text(
                                 text = card.price,
-                                style = MaterialTheme.typography.bodyMedium
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = textColor
                             )
                             Spacer(modifier = Modifier.requiredWidth(16.dp))
                             Text(
                                 text = card.expire,
-                                style = MaterialTheme.typography.bodySmall
+                                style = MaterialTheme.typography.bodySmall,
+                                color = textColor
                             )
                         }
                         Spacer(modifier = Modifier.requiredHeight(4.dp))
@@ -162,7 +159,8 @@ fun FuelCard(
                         ) {
                             Text(
                                 text = card.expireIn,
-                                style = MaterialTheme.typography.bodySmall
+                                style = MaterialTheme.typography.bodySmall,
+                                color = textColor
                             )
                         }
                     }
@@ -173,14 +171,16 @@ fun FuelCard(
                                 id = R.string.fuel_card_display_name,
                                 card.id
                             ),
-                            style = MaterialTheme.typography.bodyLarge
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = textColor
                         )
                     }
                     Spacer(modifier = Modifier.requiredHeight(4.dp))
                     Row {
                         Text(
                             text = stringResource(R.string.card_disable_text, card.id),
-                            style = MaterialTheme.typography.bodyLarge
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = textColor
                         )
                     }
                 }

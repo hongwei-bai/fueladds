@@ -19,13 +19,27 @@ import androidx.core.view.ViewCompat
 private val DarkColorScheme = darkColorScheme(
     primary = FuelGreen,
     secondary = Color.White,
-    tertiary = Color.White
+    tertiary = Color.DarkGray,
+    background = FuelGreen,
+    surface = FuelGreen,
+    onPrimary = FuelGreen,
+    onSecondary = FuelGreen,
+    onTertiary = FuelGreen,
+    onBackground = FuelGreen,
+    onSurface = FuelGreen
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = FuelGreen,
     secondary = Color.White,
-    tertiary = Color.White
+    tertiary = Color.DarkGray,
+    background = FuelGreen,
+    surface = FuelGreen,
+    onPrimary = FuelGreen,
+    onSecondary = FuelGreen,
+    onTertiary = FuelGreen,
+    onBackground = FuelGreen,
+    onSurface = FuelGreen
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

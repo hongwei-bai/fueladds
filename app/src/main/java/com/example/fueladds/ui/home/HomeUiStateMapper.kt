@@ -1,21 +1,18 @@
 package com.example.fueladds.ui.home
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.util.Log
-import androidx.compose.ui.text.toLowerCase
 import com.example.fueladds.constant.DateConstants.DATE_FORMAT
 import com.example.fueladds.constant.DateConstants.DATE_FORMAT_B1
 import com.example.fueladds.constant.DateConstants.DATE_FORMAT_B2
-import com.example.fueladds.data.local.OfflineFileRules
 import com.example.fueladds.data.model.FuelAppModel
 import com.example.fueladds.data.model.FuelAppModelBase
 import com.example.fueladds.data.model.FuelAppModelError
 import com.example.fueladds.ui.shared.UiState
-import java.io.InputStream
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 class HomeUiStateMapper @Inject constructor() {
